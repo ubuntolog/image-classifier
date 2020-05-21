@@ -70,14 +70,14 @@ loaded_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc
 img_width, img_height = 128, 128
 
 # predicting images
-img = image.load_img('10.jpg', target_size=(img_width, img_height))
-img2 = image.load_img('download.jpg', target_size=(img_width, img_height))
-x = image.img_to_array(img)
-x = np.expand_dims(x, axis=0)
+dog_image = image.load_img('dog.jpg', target_size=(img_width, img_height))
+cat_image = image.load_img('cat.jpg', target_size=(img_width, img_height))
+dog = image.img_to_array(dog_image)
+dog = np.expand_dims(dog, axis=0)
 
-b = image.img_to_array(img2)
-b = np.expand_dims(b, axis=0)
+cat = image.img_to_array(cat_image)
+cat = np.expand_dims(cat, axis=0)
 
-images = np.vstack([x, b])
+images = np.vstack([dog, cat])
 classes = loaded_model.predict(images, batch_size=3)
 print(classes)
