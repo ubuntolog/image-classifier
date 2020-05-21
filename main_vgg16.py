@@ -71,3 +71,9 @@ score = model.evaluate_generator(test_set, steps=100)
 for idx, metric in enumerate(model.metrics_names):
     print("{}: {}".format(metric, score[idx]))
 
+model_json = model.to_json()
+with open("model_vgg.json", "w") as json_file:
+    json_file.write(model_json)
+
+model.save_weights("model_vgg.h5")
+print("Saved model to disk")

@@ -1,2 +1,5 @@
 Dataset/PetImages/
+Dataset/Small/
 .vscode/
+__pycache__/
+.DS_Store

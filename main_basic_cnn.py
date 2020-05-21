@@ -20,6 +20,7 @@ if not os.path.isdir(src+'train/'):
     train_test_split(src)
 
 from keras.models import Sequential
+from keras.models import model_from_json
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Dropout, Flatten, Dense
 from keras.preprocessing.image import ImageDataGenerator
@@ -64,6 +65,11 @@ score = model.evaluate_generator(test_set, steps=100)
 for idx, metric in enumerate(model.metrics_names):
     print("{}: {}".format(metric, score[idx]))
 
+model_json = model.to_json()
+with open("model_cnn.json", "w") as json_file:
+    json_file.write(model_json)
 
+model.save_weights("model_cnn.h5")
+print("Saved model to disk")
 
 
