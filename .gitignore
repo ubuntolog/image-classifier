@@ -1,5 +1,6 @@
 Dataset/PetImages/
 Dataset/Small/
+Dataset/Food/
 .vscode/
 __pycache__/
 .DS_Store

@@ -4,7 +4,7 @@ import warnings
 warnings.filterwarnings("ignore")
 from utils import train_test_split
 
-src = 'Dataset/Small/'
+src = 'Dataset/Food/'
 
 # Check if the dataset has been downloaded. If not, direct user to download the dataset first
 if not os.path.isdir(src):
@@ -31,8 +31,8 @@ from keras.preprocessing import image
 
 # Define hyperparameters
 FILTER_SIZE = 3
-NUM_FILTERS = 128
-INPUT_SIZE  = 128
+NUM_FILTERS = 256
+INPUT_SIZE  = 256
 MAXPOOL_SIZE = 2
 BATCH_SIZE = 16
 STEPS_PER_EPOCH = 20000//BATCH_SIZE
@@ -44,12 +44,12 @@ test_set = testing_data_generator.flow_from_directory(src+'Test/',
                                              batch_size = BATCH_SIZE,
                                              class_mode = 'binary')
 
-json_file = open('model_vgg.json', 'r')
+json_file = open('model_food_vgg.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 loaded_model = model_from_json(loaded_model_json)
 # load weights into new model
-loaded_model.load_weights("model_vgg.h5")
+loaded_model.load_weights("model_food_vgg.h5")
 print("Loaded model from disk")
 
 # evaluate loaded model on test data
@@ -67,17 +67,17 @@ loaded_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc
 
 
 # dimensions of our images
-img_width, img_height = 128, 128
+img_width, img_height = 256, 256
 
 # predicting images
-dog_image = image.load_img('dog.jpg', target_size=(img_width, img_height))
-cat_image = image.load_img('cat.jpg', target_size=(img_width, img_height))
-dog = image.img_to_array(dog_image)
-dog = np.expand_dims(dog, axis=0)
+burger_image = image.load_img('burger.jpg', target_size=(img_width, img_height))
+pizza_image = image.load_img('pizza.jpg', target_size=(img_width, img_height))
+burger = image.img_to_array(burger_image)
+burger = np.expand_dims(burger, axis=0)
 
-cat = image.img_to_array(cat_image)
-cat = np.expand_dims(cat, axis=0)
+pizza = image.img_to_array(pizza_image)
+pizza = np.expand_dims(pizza, axis=0)
 
-images = np.vstack([dog, cat])
+images = np.vstack([burger, pizza])
 classes = loaded_model.predict(images, batch_size=3)
 print(classes)

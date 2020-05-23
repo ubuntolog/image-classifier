@@ -4,7 +4,7 @@ import warnings
 warnings.filterwarnings("ignore")
 from utils import train_test_split
 
-src = 'Dataset/PetImages/'
+src = 'Dataset/Food/'
 
 # Check if the dataset has been downloaded. If not, direct user to download the dataset first
 if not os.path.isdir(src):
@@ -26,7 +26,7 @@ from keras.layers import Dense, Flatten
 from keras.preprocessing.image import ImageDataGenerator
 
 # Define hyperparameters
-INPUT_SIZE = 128 #Change this to 48 if the code is taking too long to run
+INPUT_SIZE = 256 #Change this to 48 if the code is taking too long to run
 BATCH_SIZE = 16
 STEPS_PER_EPOCH = 200
 EPOCHS = 3
@@ -72,8 +72,8 @@ for idx, metric in enumerate(model.metrics_names):
     print("{}: {}".format(metric, score[idx]))
 
 model_json = model.to_json()
-with open("model_vgg.json", "w") as json_file:
+with open("model_food_vgg.json", "w") as json_file:
     json_file.write(model_json)
 
-model.save_weights("model_vgg.h5")
+model.save_weights("model_food_vgg.h5")
 print("Saved model to disk")
